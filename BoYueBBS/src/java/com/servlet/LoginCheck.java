@@ -7,7 +7,9 @@
 package com.servlet;
 
 import java.io.IOException;
-
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,19 +44,25 @@ public class LoginCheck extends HttpServlet {
                 conn=java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/boyuebbs","root","0000");
                 st=conn.createStatement();  //建立语句对象
                        
-                String sql="select id,pwd from user";  //SQL语句根据需要改--------------------------------
+                String sql="select id,pwd,nickname from user";  //SQL语句根据需要改--------------------------------
              
                 rs=st.executeQuery(sql);//这里
                boolean flog=false;
                 while(rs.next()){
                    if(username.equals(rs.getString("id"))&&password.equals(rs.getString("pwd"))){
                         flog=true;
+                        
+                        HttpSession session = request.getSession();
+                        session.setAttribute("usernam",rs.getString(3));
                         break;
-                   
-                   }                
+                   }
+                   else {
+                       HttpSession session = request.getSession();
+                        session.setAttribute("usernam","");
+                   }
                }
                if(flog==true){
-                        response.sendRedirect("index.html"); //登陆成功，到主页去了
+                        response.sendRedirect("index.jsp"); //登陆成功，到主页去了
                  }
                else{
                       RequestDispatcher dispatcher =
