@@ -23,7 +23,7 @@
         <div class="container">
             <!-- Codrops top bar -->
             <div class="codrops-top">
-                <a href="index.html">
+                <a href="index.jsp">
                     <strong>&laquo; Ê×Ò³: </strong>
                 </a>
                 <span class="right">

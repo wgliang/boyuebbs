@@ -1,6 +1,7 @@
-
-
-<%@page language="java" import="java.util.*" contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="com.db.DbBean"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page language="java" pageEncoding="GB2312" %>
+<%@page contentType="text/html;charset=GB2312" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>郑大泊月社区-郑州大学高知人群社区BBS</title>
+    <title>֣��������-֣�ݴ�ѧ��֪��Ⱥ����BBS</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -45,11 +46,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">开启社区之旅</a>
+                <a class="navbar-brand" href="index.html">��������֮��</a>
             </div>
              <div class="search">
                 <form action="">
-                <input class="text" type="text" value="   搜索话题、文字或人" />
+                <input class="text" type="text" value="   �������⡢���ֻ���" />
                 <input class="btn" type="submit" value="" />
                 </form>
             </div>
@@ -57,101 +58,101 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="##">首页</a>
+                        <a href="##">��ҳ</a>
                     </li>
                     <li>
-                        <a href="##">组织</a>
+                        <a href="zuzhi.jsp" target="_blank">��֯</a>
                     </li>
                     <li>
-                        <a href="##">学术</a>
+                        <a href="topics/science.jsp" target="_blank">ѧ��</a>
                     </li>
                     <li>
-                        <a href="##">资源</a>
+                        <a href="topics/resource.jsp" target="_blank">��Դ</a>
                     </li>
                     <li>
-                        <a href="##">交友</a>
+                        <a href="topics/friend.jsp" target="_blank">����</a>
                     </li>
                     <li>
-                        <a href="##">活动</a>
+                        <a href="topics/activity.jsp" target="_blank">�</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">娱乐<b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">����<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="portfolio-1-col.html">美食</a>
+                                <a href="topics/food.jsp" target="_blank">��ʳ</a>
                             </li>
                             <li>
-                                <a href="portfolio-2-col.html">招聘</a>
+                                <a href="topics/work.jsp" target="_blank">��Ƹ</a>
                             </li>
                             <li>
-                                <a href="portfolio-3-col.html">旅游</a>
+                                <a href="topics/trip.jsp" target="_blank">����</a>
                             </li>
                             <li>
-                                <a href="portfolio-4-col.html">拼客</a>
+                                <a href="topics/ping.jsp" target="_blank">ƴ��</a>
                             </li>
                             <li>
-                                <a href="portfolio-item.html">有约</a>
+                                <a href="topics/join.jsp" target="_blank">��Լ</a>
                             </li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">博客 <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >���� <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="blog-home-1.html">Blog Home 1</a>
+                                <a href="blog-home-1.html" target="_blank">Blog Home 1</a>
                             </li>
                             <li>
-                                <a href="blog-home-2.html">Blog Home 2</a>
+                                <a href="blog-home-2.html" target="_blank">Blog Home 2</a>
                             </li>
                             <li>
-                                <a href="blog-post.html">Blog Post</a>
+                                <a href="blog-post.html" target="_blank">Blog Post</a>
                             </li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">其他 <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">���� <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="full-width.html">Full Width Page</a>
+                                <a href="full-width.html" target="_blank">Full Width Page</a>
                             </li>
                             <li>
-                                <a href="sidebar.html">Sidebar Page</a>
+                                <a href="sidebar.html" target="_blank">Sidebar Page</a>
                             </li>
                             <li>
-                                <a href="faq.html">FAQ</a>
+                                <a href="faq.html" target="_blank">FAQ</a>
                             </li>
                             <li>
-                                <a href="404.html">404</a>
+                                <a href="404.html" target="_blank">404</a>
                             </li>
                             <li>
-                                <a href="pricing.html">Pricing Table</a>
+                                <a href="pricing.html"><%=session.getAttribute("usernam")%></a>
                         </li>
                         </ul>
                     </li>
                     <li>
                         <%
-                            if(!"null".equals((String)session.getAttribute("usernam"))){
+                            if(session.getAttribute("usernam")!=null){
                         %>
                                 
                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><% String uesrname = (String)session.getAttribute("usernam");
                                 out.print("<span>"+uesrname+"</span>"); %> <b class="caret"></b></a>
                          <ul class="dropdown-menu">
                             <li>
-                                <a href="blog-home-1.html">我的主页</a>
+                                <a href="blog-home-1.html">�ҵ���ҳ</a>
                             </li>
                             <li>
-                                <a href="blog-home-2.html">私信</a>
+                                <a href="blog-home-2.html">˽��</a>
                             </li>
                             <li>
-                                <a href="blog-post.html">设置</a>
+                                <a href="blog-post.html">����</a>
                             </li>
                             <li>
-                                <a href="blog-post.html">退出</a>
+                                <a href="blog-post.html">�˳�</a>
                             </li>
                         </ul>  
                           <%  }                        
                             else { %>
-                                 out.print(<a href="login.html">登录</a>);      
+                                 <a href="login.jsp">��¼</a>     
                           <%  } %>
                     </li>
                 </ul>
@@ -208,49 +209,132 @@
         <div class="row1">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    今日热门话题 
+                    �������Ż��� 
                 </h1>
             </div>
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>话题排行</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>��������</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <%  DbBean db1 =new DbBean();
+                            String sql1="select * from article order by count desc"; //��count����� ���� 
+                            ResultSet rs1=db1.query(sql1); //rs=st.executeQuery(sql);
+                            int count1=4;
+                            try{
+                            while((count1--)!=0&&rs1.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs1.getString("topicname")%>/<%=rs1.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs1.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs1.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db1.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics.jsp" class="btn btn-default" target="_blank">���л���</a>
                     </div>
                 </div>
             </div>
              <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>最新回复</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>��������</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>娱乐家园</h4>
-                    </div>
-                    <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
+                        <%  DbBean db2 =new DbBean();
+                            String sql2="select * from article order by data desc"; //��data����� ���� 
+                            ResultSet rs2=db2.query(sql2); //rs=st.executeQuery(sql);
+                            int count2=4;
+                            try{
+                            while((count2--)!=0&&rs2.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs2.getString("topicname")%>/<%=rs2.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs2.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs2.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db2.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
 
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <a href="#" class="btn btn-default" target="_blank">����..</a>  <!--��֪��ȥ�η�������-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-check"></i>���ּ�԰</h4>
+                    </div>
+                    <div class="panel-body">
+                        <%  DbBean db3 =new DbBean();
+                            String sql3="select * from article where topicname='food ' or topicname='work ' or topicname='trip' or topicname='ping ' or topicname='join ' order by count desc"; //��count ����� ���� 
+                            ResultSet rs3=db3.query(sql3); //rs=st.executeQuery(sql);
+                            int count3=4;
+                            try{
+                            while((count3--)!=0&&rs3.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs3.getString("topicname")%>/<%=rs3.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs3.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs3.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db3.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="#" class="btn btn-default" target="_blank">����..</a>  <!--��֪��ȥ�η�������-->
                     </div>
                 </div>
             </div>
@@ -258,14 +342,42 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>情感私密</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>���˽��</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <%  DbBean db4 =new DbBean();
+                            String sql4="select * from article where topicname='join ' order by count desc"; //��count ����� ���� 
+                            ResultSet rs4=db4.query(sql4); //rs=st.executeQuery(sql);
+                            int count4=4;
+                            try{
+                            while((count4--)!=0&&rs4.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs4.getString("topicname")%>/<%=rs4.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs4.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs4.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db4.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/join.jsp" class="btn btn-default" target="_blank">����..</a>  <!--��֪��ȥ�η�������-->
                     </div>
                 </div>
             </div>
@@ -273,28 +385,84 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-gift"></i>学术天地</h4>
+                        <h4><i class="fa fa-fw fa-gift"></i>ѧ�����</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <%  DbBean db5 =new DbBean();
+                            String sql5="select * from article where topicname='science' order by count desc"; //��count ����� ���� 
+                            ResultSet rs5=db5.query(sql5); //rs=st.executeQuery(sql);
+                            int count5=4;
+                            try{
+                            while((count5--)!=0&&rs5.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs5.getString("topicname")%>/<%=rs5.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs5.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs5.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db5.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/science.jsp" class="btn btn-default" target="_blank">����..</a>  <!--��֪��ȥ�η�������-->
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-compass"></i>美食美景</h4>
+                        <h4><i class="fa fa-fw fa-compass"></i>��ʳ����</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <%  DbBean db6 =new DbBean();
+                            String sql6="select * from article where topicname='food' order by count desc"; //��count ����� ���� 
+                            ResultSet rs6=db6.query(sql6); //rs=st.executeQuery(sql);
+                            int count6=4;
+                            try{
+                            while((count6--)!=0&&rs6.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs6.getString("topicname")%>/<%=rs6.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs6.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs6.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db6.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/food.jsp" class="btn btn-default" target="_blank">����..</a>  <!--��֪��ȥ�η�������-->
                     </div>
                 </div>
             </div>
@@ -303,22 +471,42 @@
         <div class="lcol-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>最新资源</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>������Դ</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <%  DbBean db7 =new DbBean();
+                            String sql7="select * from article where topicname='resource' order by count desc"; //��count ����� ���� 
+                            ResultSet rs7=db7.query(sql7); //rs=st.executeQuery(sql);
+                            int count7=14;
+                            try{
+                            while((count7--)!=0&&rs7.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs7.getString("topicname")%>/<%=rs7.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs7.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs7.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db7.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/resource.jsp" class="btn btn-default" target="_blank">����..</a>  <!--��֪��ȥ�η�������-->
                     </div>
                 </div>
             </div>
@@ -326,33 +514,103 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    最新活动 
+                    ���» 
                 </h1>
             </div>
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>学生组织</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>ѧ����֯</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <%  DbBean db8 =new DbBean();
+                            String sql8="select * from article where topicname='xs' order by data desc"; //��dataʱ�� ���� 
+                            ResultSet rs8=db8.query(sql8); //rs=st.executeQuery(sql);
+                            int count8=4;
+                            try{
+                            while((count8--)!=0&&rs8.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs8.getString("topicname")%>/<%=rs8.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs8.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs8.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db8.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/xs.jsp" class="btn btn-default" target="_blank">����..</a>  <!--��֪��ȥ�η�������-->
                     </div>
                 </div>
             </div>
              <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>协会风采</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>Э����</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
+                        <%  DbBean db9 =new DbBean();
+                            String sql9="select * from article where topicname='xh' order by data desc"; //��dataʱ�� ���� 
+                            ResultSet rs9=db9.query(sql9); //rs=st.executeQuery(sql);
+                            int count9=4;
+                            try{
+                            while((count9--)!=0&&rs9.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs9.getString("topicname")%>/<%=rs9.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs9.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs9.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db9.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/xh.jsp" class="btn btn-default" target="_blank">����..</a>  <!--��֪��ȥ�η�������-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-check"></i>�������</h4>
+                    </div>
+                    <div class="panel-body">
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
                         <a href="#" class="btn btn-default">Learn More</a>
                     </div>
                 </div>
@@ -360,28 +618,42 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>最近报告</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>����</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>最近活动</h4>
-                    </div>
-                    <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <%  DbBean db11 =new DbBean();
+                            String sql11="select * from article where topicname='activity' order by data desc"; //��dataʱ�� ���� 
+                            ResultSet rs11=db11.query(sql11); //rs=st.executeQuery(sql);
+                            int count11=4;
+                            try{
+                            while((count11--)!=0&&rs11.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs11.getString("topicname")%>/<%=rs11.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs11.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs11.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db11.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/activity.jsp" class="btn btn-default" target="_blank">����..</a>  <!--��֪��ȥ�η�������-->
                     </div>
                 </div>
             </div>
@@ -389,13 +661,13 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-gift"></i>最新招新</h4>
+                        <h4><i class="fa fa-fw fa-gift"></i>��������</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
                         <a href="#" class="btn btn-default">Learn More</a>
                     </div>
                 </div>
@@ -403,14 +675,42 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-compass"></i>最新招聘</h4>
+                        <h4><i class="fa fa-fw fa-compass"></i>������Ƹ</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <%  DbBean db10 =new DbBean();
+                            String sql10="select * from article where topicname='work' order by data desc"; //��dataʱ�� ���� 
+                            ResultSet rs10=db10.query(sql10); //rs=st.executeQuery(sql);
+                            int count10=4;
+                            try{
+                            while((count10--)!=0&&rs10.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs10.getString("topicname")%>/<%=rs10.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs10.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs10.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db10.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/work.jsp" class="btn btn-default" target="_blank">����..</a>  <!--��֪��ȥ�η�������-->
                     </div>
                 </div>
             </div>
@@ -420,61 +720,145 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    拼凑约伴 
+                    ƴ��Լ�� 
                 </h1>
             </div>
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>拼客来临</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>ƴ������</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <%  DbBean db12 =new DbBean();
+                            String sql12="select * from article where topicname='ping' order by data desc"; //��dataʱ�� ���� 
+                            ResultSet rs12=db12.query(sql12); //rs=st.executeQuery(sql);
+                            int count12=4;
+                            try{
+                            while((count12--)!=0&&rs12.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs12.getString("topicname")%>/<%=rs12.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs12.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs12.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db12.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/ping.jsp" class="btn btn-default" target="_blank">����..</a>  <!--��֪��ȥ�η�������-->
                     </div>
                 </div>
             </div>
              <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>凑合凑合</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>����ȥ��</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <%  DbBean db13 =new DbBean();
+                            String sql13="select * from article where topicname='trip' order by data desc"; //��dataʱ�� ���� 
+                            ResultSet rs13=db13.query(sql13); //rs=st.executeQuery(sql);
+                            int count13=4;
+                            try{
+                            while((count13--)!=0&&rs13.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs13.getString("topicname")%>/<%=rs13.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs13.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs13.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db13.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/trip.jsp" class="btn btn-default" target="_blank">����..</a>  <!--��֪��ȥ�η�������-->
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>应约不约</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>ӦԼ��Լ</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <%  DbBean db14 =new DbBean();
+                            String sql14="select * from article where topicname='join' order by data desc"; //��dataʱ�� ���� 
+                            ResultSet rs14=db14.query(sql14); //rs=st.executeQuery(sql);
+                            int count14=4;
+                            try{
+                            while((count14--)!=0&&rs14.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs14.getString("topicname")%>/<%=rs14.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs14.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs14.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db14.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/join.jsp" class="btn btn-default" target="_blank">����..</a>  <!--��֪��ȥ�η�������-->
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>老乡情深</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>��������</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
                         <a href="#" class="btn btn-default">Learn More</a>
                     </div>
                 </div>
@@ -483,13 +867,13 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-gift"></i>人逢知己</h4>
+                        <h4><i class="fa fa-fw fa-gift"></i>�˷�֪��</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
                         <a href="#" class="btn btn-default">Learn More</a>
                     </div>
                 </div>
@@ -497,14 +881,42 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-compass"></i>非诚勿扰</h4>
+                        <h4><i class="fa fa-fw fa-compass"></i>�ǳ�����</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <%  DbBean db15 =new DbBean();
+                            String sql15="select * from article where topicname='friend' order by data desc"; //��dataʱ�� ���� 
+                            ResultSet rs15=db15.query(sql15); //rs=st.executeQuery(sql);
+                            int count15=4;
+                            try{
+                            while((count15--)!=0&&rs15.next()){
+            
+                         %> 
+                        <li>
+                            <a href="topics/<%=rs15.getString("topicname")%>/<%=rs15.getString("id")%>.jsp" target="_blank">
+                               <%
+                                    String str=new String(rs15.getString("title")); //ǰ27  ���µı�������ʾ��27���֣��������ֺ����Ŀ���px��һ�����Ͱ����ĵ������������
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"��");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs15.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db15.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/friend.jsp" class="btn btn-default" target="_blank">����..</a>  <!--��֪��ȥ�η�������-->
                     </div>
                 </div>
             </div>
@@ -513,36 +925,36 @@
         <!-- Portfolio Section -->
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="page-header">图新鲜</h2>
+                <h2 class="page-header">ͼ����</h2>
             </div>
             <div class="col-md-4 col-sm-6">
                 <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-1.jpg" alt="郑州大学风景">
+                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-1.jpg" alt="֣�ݴ�ѧ�羰">
                 </a>
             </div>
             <div class="col-md-4 col-sm-6">
                 <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-2.jpg" alt="郑州大学风景">
+                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-2.jpg" alt="֣�ݴ�ѧ�羰">
                 </a>
             </div>
             <div class="col-md-4 col-sm-6">
                 <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-3.jpg" alt="郑州大学风景">
+                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-3.jpg" alt="֣�ݴ�ѧ�羰">
                 </a>
             </div>
             <div class="col-md-4 col-sm-6">
                 <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-4.jpg" alt="郑州大学风景">
+                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-4.jpg" alt="֣�ݴ�ѧ�羰">
                 </a>
             </div>
             <div class="col-md-4 col-sm-6">
                 <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-5.jpg" alt="郑州大学风景">
+                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-5.jpg" alt="֣�ݴ�ѧ�羰">
                 </a>
             </div>
             <div class="col-md-4 col-sm-6">
                 <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-6.jpg" alt="郑州大学风景">
+                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-6.jpg" alt="֣�ݴ�ѧ�羰">
                 </a>
             </div>
         </div>
@@ -551,19 +963,19 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    友情链接 
+                    �������� 
                 </h1>
             </div>
             <div class="bcol-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>拼客来临</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>ƴ������</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
                         <a href="#" class="btn btn-default">Learn More</a>
                     </div>
                 </div>
@@ -572,13 +984,13 @@
             <div class="bcol-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>老乡情深</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>��������</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
                         <a href="#" class="btn btn-default">Learn More</a>
                     </div>
                 </div>
@@ -587,13 +999,13 @@
             <div class="bcol-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-gift"></i>人逢知己</h4>
+                        <h4><i class="fa fa-fw fa-gift"></i>�˷�֪��</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
                         <a href="#" class="btn btn-default">Learn More</a>
                     </div>
                 </div>
@@ -601,13 +1013,13 @@
             <div class="bcol-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-compass"></i>非诚勿扰</h4>
+                        <h4><i class="fa fa-fw fa-compass"></i>�ǳ�����</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
+                        <li><a href="#">֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ֣�ݴ�ѧ</a></li>
                         <a href="#" class="btn btn-default">Learn More</a>
                     </div>
                 </div>
@@ -633,7 +1045,7 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
             </div>
             <div class="col-md-6">
-                <img class="img-responsive" src="images/zzu.jpg" alt="郑州大学">
+                <img class="img-responsive" src="images/zzu.jpg" alt="֣�ݴ�ѧ">
             </div>
         </div>
         <!-- /.row -->
@@ -658,7 +1070,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &王国梁; Your Website 2014</p>
+                    <p>Copyright &������; Your Website 2014</p>
                 </div>
             </div>
         </footer>

@@ -44,7 +44,7 @@ public class LoginCheck extends HttpServlet {
                 conn=java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/boyuebbs","root","0000");
                 st=conn.createStatement();  //建立语句对象
                        
-                String sql="select id,pwd,nickname from user";  //SQL语句根据需要改--------------------------------
+                String sql="select id,pwd,nickname,head from user";  //SQL语句根据需要改--------------------------------
              
                 rs=st.executeQuery(sql);//这里
                boolean flog=false;
@@ -54,6 +54,7 @@ public class LoginCheck extends HttpServlet {
                         
                         HttpSession session = request.getSession();
                         session.setAttribute("usernam",rs.getString(3));
+                        session.setAttribute("head",rs.getString(4));
                         break;
                    }
                    else {

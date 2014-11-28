@@ -10,13 +10,13 @@ import com.exception.userwrong;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-public class registerservice {
-
-	public void create(String id,String pwd,String nickname,String sex,String age,String email,String head,String sign, String department,String profession) throws userwrong, ClassNotFoundException, SysException {
-		// TODO Auto-generated method stub
-		Connection conn=null;
+public class RegisterService {
+                Connection conn=null;
 		ResultSet sqlRst = null;
 		PreparedStatement pst=null;
+	public void create(String id,String pwd,String nickname,String sex,String age,String email,String head,String sign, String department,String profession) throws userwrong, ClassNotFoundException, SysException {
+		// TODO Auto-generated method stub
+		
 		try{
 			DbBean db=new DbBean();
 		 	   conn=(Connection) db.getConnection();

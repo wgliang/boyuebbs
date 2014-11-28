@@ -9,7 +9,7 @@ package com.servlet;
 import com.exception.SysException;
 import com.exception.userwrong;
 import com.mysql.jdbc.PreparedStatement;
-import com.service.registerservice;
+import com.service.RegisterService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.DriverManager;
@@ -23,6 +23,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -54,8 +55,11 @@ protected void processRequest(HttpServletRequest request,
                        }
                        else{
                           try {
-                                new registerservice().create(id,pwd,nickname,sex,age,email,head,sign,department,profession);
+                                RegisterService register= new RegisterService();
+                                register.create(id,pwd,nickname,sex,age,email,head,sign,department,profession);
                                 request.setAttribute("error","注册成功，请登录！");
+                                HttpSession session = request.getSession();//。。。。。。。。。。。这里是Session
+                                session.setAttribute("usernam",nickname);//。。。。。。。。。。。。这里是Session
                                 request.getRequestDispatcher("index.jsp").forward(request, response);
                             } catch (ClassNotFoundException e) {			
                                 e.printStackTrace();
@@ -82,36 +86,7 @@ protected void processRequest(HttpServletRequest request,
                  }
                      
                 
-		/**try {
-                    
-                        
-			new registerservice().create(id,pwd,nickname,sex,age,email,head,sign,department,profession);
-			request.setAttribute("error","注册成功，请登录！");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (userwrong e) {
-			// TODO Auto-generated catch block
-		       request.setAttribute("error",e.getMessage());
-                       response.sendRedirect("login.jsp#toregister");   //跳转
-                       
-                      // out.println("<script language=\"javascript\">");
-                       //out.println("window.open (\"registererror.html\", \"newwindow\", \"height=200, width=200, top=200, left=400, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no\")&nbsp;"); 
-                      //  out.println("</script>");
-                       
-                        //跳出错误小窗口
-                       // request.getRequestDispatcher("login.jsp#toregister").forward(request, response);
-   
-  
-			e.printStackTrace();
-		} catch (SysException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		finally{
-			
-		}**/
+		
                }
 
    
