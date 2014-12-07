@@ -46,11 +46,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">开启社区之旅</a>
+                <a class="navbar-brand" href="#">开启社区之旅</a>
             </div>
              <div class="search">
                 <form action="">
-                <input class="text" type="text" value="   搜索话题、文字或人" />
+                <input class="text" type="text" autocomplete="off" value="" placeholder=" 搜索话题、问题或人…"/>
                 <input class="btn" type="submit" value="" />
                 </form>
             </div>
@@ -96,16 +96,16 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >博客 <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >链接<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="blog-home-1.html" target="_blank">Blog Home 1</a>
+                                <a href="http://www.zzu.edu.cn/" target="_blank">郑州大学官网</a>
                             </li>
                             <li>
-                                <a href="blog-home-2.html" target="_blank">Blog Home 2</a>
+                                <a href="http://jw.zzu.edu.cn/index.html" target="_blank">郑州大学教务首页</a>
                             </li>
                             <li>
-                                <a href="blog-post.html" target="_blank">Blog Post</a>
+                                <a href="http://lib.zzu.edu.cn/" target="_blank">郑州大学图书馆</a>
                             </li>
                         </ul>
                     </li>
@@ -131,14 +131,14 @@
                     </li>
                     <li>
                         <%
-                            if(session.getAttribute("usernam")!=null){
+                            if(session.getAttribute("username")!=null){
                         %>
                                 
-                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><% String uesrname = (String)session.getAttribute("usernam");
-                                out.print("<span>"+uesrname+"</span>"); %> <b class="caret"></b></a>
+                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><% String username = (String)session.getAttribute("username");
+                                out.print("<span>"+username+"</span>"); %> <b class="caret"></b></a>
                          <ul class="dropdown-menu">
                             <li>
-                                <a href="blog-home-1.html">我的主页</a>
+                                <a href="userhome.jsp">我的主页</a>
                             </li>
                             <li>
                                 <a href="blog-home-2.html">私信</a>
@@ -174,19 +174,19 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
             <div class="item active">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide One');"></div>
+                <div class="fill" style="background-image:url('images/slide1.jpg');"></div>
                 <div class="carousel-caption">
                     <h2>Caption 1</h2>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"></div>
+                <div class="fill" style="background-image:url('images/slide4.jpg');"></div>
                 <div class="carousel-caption">
                     <h2>Caption 2</h2>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"></div>
+                <div class="fill" style="background-image:url('images/slide3.jpg');"></div>
                 <div class="carousel-caption">
                     <h2>Caption 3</h2>
                 </div>
@@ -209,7 +209,7 @@
         <div class="row1">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    今日热门话题 
+                    今日热门 
                 </h1>
             </div>
             <div class="col-md-4">
@@ -221,13 +221,16 @@
                         <%  DbBean db1 =new DbBean();
                             String sql1="select * from article order by count desc"; //：count浏览数 排序 
                             ResultSet rs1=db1.query(sql1); //rs=st.executeQuery(sql);
-                            int count1=4;
+                            int count1=10;
                             try{
                             while((count1--)!=0&&rs1.next()){
             
                          %> 
-                        <li>
-                            <a href="topics/<%=rs1.getString("topicname")%>/<%=rs1.getString("id")%>.jsp" target="_blank">
+                        <li><% String title= rs1.getString("title");
+                            String data= rs1.getString("data");
+                         String usename= rs1.getString("usename");
+                         String text= rs1.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
                                <%
                                     String str=new String(rs1.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
                                     if(str.length()>27){      
@@ -257,19 +260,23 @@
              <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>最新文章</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>话题动态</h4>
                     </div>
                     <div class="panel-body">
                         <%  DbBean db2 =new DbBean();
                             String sql2="select * from article order by data desc"; //：data浏览数 排序 
                             ResultSet rs2=db2.query(sql2); //rs=st.executeQuery(sql);
-                            int count2=4;
+                            int count2=10;
                             try{
                             while((count2--)!=0&&rs2.next()){
             
                          %> 
                         <li>
-                            <a href="topics/<%=rs2.getString("topicname")%>/<%=rs2.getString("id")%>.jsp" target="_blank">
+                            <% String title= rs2.getString("title");
+                                String data= rs2.getString("data");
+                                 String usename= rs2.getString("usename");
+                                    String text= rs2.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
                                <%
                                     String str=new String(rs2.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
                                     if(str.length()>27){      
@@ -299,19 +306,357 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-gift"></i>学术动态</h4>
+                    </div>
+                    <div class="panel-body">
+                        <%  DbBean db16 =new DbBean();
+                            String sql16="select * from article where topicname='science' order by count desc"; //：count 浏览量 排序 
+                            ResultSet rs16=db16.query(sql16); //rs=st.executeQuery(sql);
+                            int count16=10;
+                            try{
+                            while((count16--)!=0&&rs16.next()){
+            
+                         %> 
+                        <li>
+                            <% String title= rs16.getString("title");
+                                String data= rs16.getString("data");
+                                 String usename= rs16.getString("usename");
+                                    String text= rs16.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
+                               <%
+                                    String str=new String(rs16.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"…");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs16.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db16.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/science.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-gift"></i>即时校事</h4>
+                    </div>
+                    <div class="panel-body">
+                        <%  DbBean db17 =new DbBean();
+                            String sql17="select * from article where topicname='xs' order by count desc"; //：count 浏览量 排序 
+                            ResultSet rs17=db17.query(sql17); //rs=st.executeQuery(sql);
+                            int count17=10;
+                            try{
+                            while((count17--)!=0&&rs17.next()){
+            
+                         %> 
+                        <li>
+                            <% String title= rs17.getString("title");
+                                String data= rs17.getString("data");
+                                 String usename= rs17.getString("usename");
+                                    String text= rs17.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
+                               <%
+                                    String str=new String(rs17.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"…");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs17.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db17.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/science.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-check"></i>最近活动</h4>
+                    </div>
+                    <div class="panel-body">
+                        <%  DbBean db11 =new DbBean();
+                            String sql11="select * from article where topicname='activity' order by data desc"; //：data时间 排序 
+                            ResultSet rs11=db11.query(sql11); //rs=st.executeQuery(sql);
+                            int count11=10;
+                            try{
+                            while((count11--)!=0&&rs11.next()){
+            
+                         %> 
+                        <li>
+                            <% String title= rs11.getString("title");
+                                String data= rs11.getString("data");
+                                 String usename= rs11.getString("usename");
+                                    String text= rs11.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
+                               <%
+                                    String str=new String(rs11.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"…");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs11.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db11.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/activity.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-compass"></i>最新招聘</h4>
+                    </div>
+                    <div class="panel-body">
+                        <%  DbBean db10 =new DbBean();
+                            String sql10="select * from article where topicname='work' order by data desc"; //：data时间 排序 
+                            ResultSet rs10=db10.query(sql10); //rs=st.executeQuery(sql);
+                            int count10=10;
+                            try{
+                            while((count10--)!=0&&rs10.next()){
+            
+                         %> 
+                        <li>
+                            <% String title= rs10.getString("title");
+                                String data= rs10.getString("data");
+                                 String usename= rs10.getString("usename");
+                                    String text= rs10.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
+                               <%
+                                    String str=new String(rs10.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"…");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs10.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db10.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/work.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- /.row -->
+        <div class="lcol-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-check"></i>资源动态</h4>
+                    </div>
+                    <div class="panel-body">
+                        <%  DbBean db7 =new DbBean();
+                            String sql7="select * from article where topicname='resource' order by count desc"; //：count 浏览量 排序 
+                            ResultSet rs7=db7.query(sql7); //rs=st.executeQuery(sql);
+                            int count7=14;
+                            try{
+                            while((count7--)!=0&&rs7.next()){
+            
+                         %> 
+                        <li>
+                            <% String title= rs7.getString("title");
+                                String data= rs7.getString("data");
+                                 String usename= rs7.getString("usename");
+                                    String text= rs7.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
+                               <%
+                                    String str=new String(rs7.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"…");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs7.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db7.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/resource.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
+                    </div>
+                </div>
+            </div>
+        <!-- Marketing Icons Section -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    校园文化 
+                </h1>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-check"></i>学生组织</h4>
+                    </div>
+                    <div class="panel-body">
+                        <%  DbBean db8 =new DbBean();
+                            String sql8="select * from article where topicname='xs' order by data desc"; //：data时间 排序 
+                            ResultSet rs8=db8.query(sql8); //rs=st.executeQuery(sql);
+                            int count8=10;
+                            try{
+                            while((count8--)!=0&&rs8.next()){
+            
+                         %> 
+                        <li>
+                            <% String title= rs8.getString("title");
+                                String data= rs8.getString("data");
+                                 String usename= rs8.getString("usename");
+                                    String text= rs8.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
+                               <%
+                                    String str=new String(rs8.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));     
+                                          out.println(shorstr+"…");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs8.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                            }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db8.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/xs.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
+                    </div>
+                </div>
+            </div>
+             <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-check"></i>协会风采</h4>
+                    </div>
+                    <div class="panel-body">
+                        <%  DbBean db9 =new DbBean();
+                            String sql9="select * from article where topicname='xh' order by data desc"; //：data时间 排序 
+                            ResultSet rs9=db9.query(sql9); //rs=st.executeQuery(sql);
+                            int count9=10;
+                            try{
+                            while((count9--)!=0&&rs9.next()){
+            
+                         %> 
+                        <li>
+                            <% String title= rs9.getString("title");
+                                String data= rs9.getString("data");
+                                 String usename= rs9.getString("usename");
+                                    String text= rs9.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
+                               <%
+                                    String str=new String(rs9.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"…");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs9.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db9.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/xh.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
                         <h4><i class="fa fa-fw fa-check"></i>娱乐家园</h4>
                     </div>
                     <div class="panel-body">
                         <%  DbBean db3 =new DbBean();
                             String sql3="select * from article where topicname='food ' or topicname='work ' or topicname='trip' or topicname='ping ' or topicname='join ' order by count desc"; //：count 浏览量 排序 
                             ResultSet rs3=db3.query(sql3); //rs=st.executeQuery(sql);
-                            int count3=4;
+                            int count3=10;
                             try{
                             while((count3--)!=0&&rs3.next()){
             
                          %> 
                         <li>
-                            <a href="topics/<%=rs3.getString("topicname")%>/<%=rs3.getString("id")%>.jsp" target="_blank">
+                            <% String title= rs3.getString("title");
+                                String data= rs3.getString("data");
+                                 String usename= rs3.getString("usename");
+                                    String text= rs3.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
                                <%
                                     String str=new String(rs3.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
                                     if(str.length()>27){      
@@ -338,7 +683,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -346,15 +691,19 @@
                     </div>
                     <div class="panel-body">
                         <%  DbBean db4 =new DbBean();
-                            String sql4="select * from article where topicname='join ' order by count desc"; //：count 浏览量 排序 
+                            String sql4="select * from article where topicname='friend' order by count desc"; //：count 浏览量 排序 
                             ResultSet rs4=db4.query(sql4); //rs=st.executeQuery(sql);
-                            int count4=4;
+                            int count4=10;
                             try{
                             while((count4--)!=0&&rs4.next()){
             
                          %> 
                         <li>
-                            <a href="topics/<%=rs4.getString("topicname")%>/<%=rs4.getString("id")%>.jsp" target="_blank">
+                            <% String title= rs4.getString("title");
+                                String data= rs4.getString("data");
+                                 String usename= rs4.getString("usename");
+                                    String text= rs4.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
                                <%
                                     String str=new String(rs4.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
                                     if(str.length()>27){      
@@ -391,13 +740,17 @@
                         <%  DbBean db5 =new DbBean();
                             String sql5="select * from article where topicname='science' order by count desc"; //：count 浏览量 排序 
                             ResultSet rs5=db5.query(sql5); //rs=st.executeQuery(sql);
-                            int count5=4;
+                            int count5=10;
                             try{
                             while((count5--)!=0&&rs5.next()){
             
                          %> 
                         <li>
-                            <a href="topics/<%=rs5.getString("topicname")%>/<%=rs5.getString("id")%>.jsp" target="_blank">
+                            <% String title= rs5.getString("title");
+                                String data= rs5.getString("data");
+                                 String usename= rs5.getString("usename");
+                                    String text= rs5.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
                                <%
                                     String str=new String(rs5.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
                                     if(str.length()>27){      
@@ -427,184 +780,7 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-compass"></i>美食美景</h4>
-                    </div>
-                    <div class="panel-body">
-                        <%  DbBean db6 =new DbBean();
-                            String sql6="select * from article where topicname='food' order by count desc"; //：count 浏览量 排序 
-                            ResultSet rs6=db6.query(sql6); //rs=st.executeQuery(sql);
-                            int count6=4;
-                            try{
-                            while((count6--)!=0&&rs6.next()){
-            
-                         %> 
-                        <li>
-                            <a href="topics/<%=rs6.getString("topicname")%>/<%=rs6.getString("id")%>.jsp" target="_blank">
-                               <%
-                                    String str=new String(rs6.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
-                                    if(str.length()>27){      
-                                        String shorstr=new String(str.substring(0,23));          
-                                        out.println(shorstr+"…");  
-                                    }else{
-                                        int remainNum=27-str.length();
-                                        String str2=new String(rs6.getString("title"));
-                                        for(int i=0;i<remainNum;i++){
-                                            str2+=" ";
-                                        }
-                                        out.println(str2);  
-                                    }        
-                                 %>
-                            </a>
-                        </li>
-                         <% }
-                            db6.close();
-                          }catch(Exception e){
-                                out.println(e.toString());
-                          }%>    
-
-                        <a href="topics/food.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /.row -->
-        <div class="lcol-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>最新资源</h4>
-                    </div>
-                    <div class="panel-body">
-                        <%  DbBean db7 =new DbBean();
-                            String sql7="select * from article where topicname='resource' order by count desc"; //：count 浏览量 排序 
-                            ResultSet rs7=db7.query(sql7); //rs=st.executeQuery(sql);
-                            int count7=14;
-                            try{
-                            while((count7--)!=0&&rs7.next()){
-            
-                         %> 
-                        <li>
-                            <a href="topics/<%=rs7.getString("topicname")%>/<%=rs7.getString("id")%>.jsp" target="_blank">
-                               <%
-                                    String str=new String(rs7.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
-                                    if(str.length()>27){      
-                                        String shorstr=new String(str.substring(0,23));          
-                                        out.println(shorstr+"…");  
-                                    }else{
-                                        int remainNum=27-str.length();
-                                        String str2=new String(rs7.getString("title"));
-                                        for(int i=0;i<remainNum;i++){
-                                            str2+=" ";
-                                        }
-                                        out.println(str2);  
-                                    }        
-                                 %>
-                            </a>
-                        </li>
-                         <% }
-                            db7.close();
-                          }catch(Exception e){
-                                out.println(e.toString());
-                          }%>    
-
-                        <a href="topics/resource.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
-                    </div>
-                </div>
-            </div>
-        <!-- Marketing Icons Section -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">
-                    最新活动 
-                </h1>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>学生组织</h4>
-                    </div>
-                    <div class="panel-body">
-                        <%  DbBean db8 =new DbBean();
-                            String sql8="select * from article where topicname='xs' order by data desc"; //：data时间 排序 
-                            ResultSet rs8=db8.query(sql8); //rs=st.executeQuery(sql);
-                            int count8=4;
-                            try{
-                            while((count8--)!=0&&rs8.next()){
-            
-                         %> 
-                        <li>
-                            <a href="topics/<%=rs8.getString("topicname")%>/<%=rs8.getString("id")%>.jsp" target="_blank">
-                               <%
-                                    String str=new String(rs8.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
-                                    if(str.length()>27){      
-                                        String shorstr=new String(str.substring(0,23));          
-                                        out.println(shorstr+"…");  
-                                    }else{
-                                        int remainNum=27-str.length();
-                                        String str2=new String(rs8.getString("title"));
-                                        for(int i=0;i<remainNum;i++){
-                                            str2+=" ";
-                                        }
-                                        out.println(str2);  
-                                    }        
-                                 %>
-                            </a>
-                        </li>
-                         <% }
-                            db8.close();
-                          }catch(Exception e){
-                                out.println(e.toString());
-                          }%>    
-
-                        <a href="topics/xs.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
-                    </div>
-                </div>
-            </div>
-             <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>协会风采</h4>
-                    </div>
-                    <div class="panel-body">
-                        <%  DbBean db9 =new DbBean();
-                            String sql9="select * from article where topicname='xh' order by data desc"; //：data时间 排序 
-                            ResultSet rs9=db9.query(sql9); //rs=st.executeQuery(sql);
-                            int count9=4;
-                            try{
-                            while((count9--)!=0&&rs9.next()){
-            
-                         %> 
-                        <li>
-                            <a href="topics/<%=rs9.getString("topicname")%>/<%=rs9.getString("id")%>.jsp" target="_blank">
-                               <%
-                                    String str=new String(rs9.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
-                                    if(str.length()>27){      
-                                        String shorstr=new String(str.substring(0,23));          
-                                        out.println(shorstr+"…");  
-                                    }else{
-                                        int remainNum=27-str.length();
-                                        String str2=new String(rs9.getString("title"));
-                                        for(int i=0;i<remainNum;i++){
-                                            str2+=" ";
-                                        }
-                                        out.println(str2);  
-                                    }        
-                                 %>
-                            </a>
-                        </li>
-                         <% }
-                            db9.close();
-                          }catch(Exception e){
-                                out.println(e.toString());
-                          }%>    
-
-                        <a href="topics/xh.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>最近报告</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>老乡情深</h4>
                     </div>
                     <div class="panel-body">
                         <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
@@ -615,112 +791,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>最近活动</h4>
-                    </div>
-                    <div class="panel-body">
-                        <%  DbBean db11 =new DbBean();
-                            String sql11="select * from article where topicname='activity' order by data desc"; //：data时间 排序 
-                            ResultSet rs11=db11.query(sql11); //rs=st.executeQuery(sql);
-                            int count11=4;
-                            try{
-                            while((count11--)!=0&&rs11.next()){
-            
-                         %> 
-                        <li>
-                            <a href="topics/<%=rs11.getString("topicname")%>/<%=rs11.getString("id")%>.jsp" target="_blank">
-                               <%
-                                    String str=new String(rs11.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
-                                    if(str.length()>27){      
-                                        String shorstr=new String(str.substring(0,23));          
-                                        out.println(shorstr+"…");  
-                                    }else{
-                                        int remainNum=27-str.length();
-                                        String str2=new String(rs11.getString("title"));
-                                        for(int i=0;i<remainNum;i++){
-                                            str2+=" ";
-                                        }
-                                        out.println(str2);  
-                                    }        
-                                 %>
-                            </a>
-                        </li>
-                         <% }
-                            db11.close();
-                          }catch(Exception e){
-                                out.println(e.toString());
-                          }%>    
-
-                        <a href="topics/activity.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-gift"></i>最新招新</h4>
-                    </div>
-                    <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-compass"></i>最新招聘</h4>
-                    </div>
-                    <div class="panel-body">
-                        <%  DbBean db10 =new DbBean();
-                            String sql10="select * from article where topicname='work' order by data desc"; //：data时间 排序 
-                            ResultSet rs10=db10.query(sql10); //rs=st.executeQuery(sql);
-                            int count10=4;
-                            try{
-                            while((count10--)!=0&&rs10.next()){
-            
-                         %> 
-                        <li>
-                            <a href="topics/<%=rs10.getString("topicname")%>/<%=rs10.getString("id")%>.jsp" target="_blank">
-                               <%
-                                    String str=new String(rs10.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
-                                    if(str.length()>27){      
-                                        String shorstr=new String(str.substring(0,23));          
-                                        out.println(shorstr+"…");  
-                                    }else{
-                                        int remainNum=27-str.length();
-                                        String str2=new String(rs10.getString("title"));
-                                        for(int i=0;i<remainNum;i++){
-                                            str2+=" ";
-                                        }
-                                        out.println(str2);  
-                                    }        
-                                 %>
-                            </a>
-                        </li>
-                         <% }
-                            db10.close();
-                          }catch(Exception e){
-                                out.println(e.toString());
-                          }%>    
-
-                        <a href="topics/work.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
-                    </div>
-                </div>
-            </div>
         </div>
         <!-- /.row -->
         <!-- Marketing Icons Section -->
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    拼凑约伴 
+                    休闲娱乐 
                 </h1>
             </div>
             <div class="col-md-4">
@@ -732,13 +809,17 @@
                         <%  DbBean db12 =new DbBean();
                             String sql12="select * from article where topicname='ping' order by data desc"; //：data时间 排序 
                             ResultSet rs12=db12.query(sql12); //rs=st.executeQuery(sql);
-                            int count12=4;
+                            int count12=10;
                             try{
                             while((count12--)!=0&&rs12.next()){
             
                          %> 
                         <li>
-                            <a href="topics/<%=rs12.getString("topicname")%>/<%=rs12.getString("id")%>.jsp" target="_blank">
+                            <% String title= rs12.getString("title");
+                                String data= rs12.getString("data");
+                                 String usename= rs12.getString("usename");
+                                    String text= rs12.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
                                <%
                                     String str=new String(rs12.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
                                     if(str.length()>27){      
@@ -774,13 +855,17 @@
                         <%  DbBean db13 =new DbBean();
                             String sql13="select * from article where topicname='trip' order by data desc"; //：data时间 排序 
                             ResultSet rs13=db13.query(sql13); //rs=st.executeQuery(sql);
-                            int count13=4;
+                            int count13=10;
                             try{
                             while((count13--)!=0&&rs13.next()){
             
                          %> 
                         <li>
-                            <a href="topics/<%=rs13.getString("topicname")%>/<%=rs13.getString("id")%>.jsp" target="_blank">
+                            <% String title= rs13.getString("title");
+                                String data= rs13.getString("data");
+                                 String usename= rs13.getString("usename");
+                                    String text= rs13.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
                                <%
                                     String str=new String(rs13.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
                                     if(str.length()>27){      
@@ -810,19 +895,22 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>应约不约</h4>
+                        <h4><i class="fa fa-fw fa-check"></i>志同道合</h4>
                     </div>
                     <div class="panel-body">
                         <%  DbBean db14 =new DbBean();
                             String sql14="select * from article where topicname='join' order by data desc"; //：data时间 排序 
                             ResultSet rs14=db14.query(sql14); //rs=st.executeQuery(sql);
-                            int count14=4;
+                            int count14=10;
                             try{
                             while((count14--)!=0&&rs14.next()){
             
                          %> 
-                        <li>
-                            <a href="topics/<%=rs14.getString("topicname")%>/<%=rs14.getString("id")%>.jsp" target="_blank">
+                        <li><% String title= rs14.getString("title");
+                                String data= rs14.getString("data");
+                                 String usename= rs14.getString("usename");
+                                    String text= rs14.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
                                <%
                                     String str=new String(rs14.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
                                     if(str.length()>27){      
@@ -852,17 +940,49 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>老乡情深</h4>
+                        <h4><i class="fa fa-fw fa-compass"></i>美食郑大</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <%  DbBean db6 =new DbBean();
+                            String sql6="select * from article where topicname='food' order by count desc"; //：count 浏览量 排序 
+                            ResultSet rs6=db6.query(sql6); //rs=st.executeQuery(sql);
+                            int count6=10;
+                            try{
+                            while((count6--)!=0&&rs6.next()){
+            
+                         %> 
+                        <li><% String title= rs6.getString("title");
+                                String data= rs6.getString("data");
+                                 String usename= rs6.getString("usename");
+                                    String text= rs6.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
+                               <%
+                                    String str=new String(rs6.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"…");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs6.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db6.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/food.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
                     </div>
                 </div>
             </div>
+            
 
             <div class="col-md-4">
                 <div class="panel panel-default">
@@ -870,11 +990,42 @@
                         <h4><i class="fa fa-fw fa-gift"></i>人逢知己</h4>
                     </div>
                     <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <%  DbBean db18 =new DbBean();
+                            String sql18="select * from article where topicname='friend' order by count desc"; //：count 浏览量 排序 
+                            ResultSet rs18=db18.query(sql18); //rs=st.executeQuery(sql);
+                            int count18=10;
+                            try{
+                            while((count18--)!=0&&rs18.next()){
+            
+                         %> 
+                        <li><% String title= rs18.getString("title");
+                                String data= rs18.getString("data");
+                                 String usename= rs18.getString("usename");
+                                    String text= rs18.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
+                               <%
+                                    String str=new String(rs18.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
+                                    if(str.length()>27){      
+                                        String shorstr=new String(str.substring(0,23));          
+                                        out.println(shorstr+"…");  
+                                    }else{
+                                        int remainNum=27-str.length();
+                                        String str2=new String(rs18.getString("title"));
+                                        for(int i=0;i<remainNum;i++){
+                                            str2+=" ";
+                                        }
+                                        out.println(str2);  
+                                    }        
+                                 %>
+                            </a>
+                        </li>
+                         <% }
+                            db18.close();
+                          }catch(Exception e){
+                                out.println(e.toString());
+                          }%>    
+
+                        <a href="topics/science.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->
                     </div>
                 </div>
             </div>
@@ -887,13 +1038,16 @@
                         <%  DbBean db15 =new DbBean();
                             String sql15="select * from article where topicname='friend' order by data desc"; //：data时间 排序 
                             ResultSet rs15=db15.query(sql15); //rs=st.executeQuery(sql);
-                            int count15=4;
+                            int count15=10;
                             try{
                             while((count15--)!=0&&rs15.next()){
             
                          %> 
-                        <li>
-                            <a href="topics/<%=rs15.getString("topicname")%>/<%=rs15.getString("id")%>.jsp" target="_blank">
+                        <li><% String title= rs15.getString("title");
+                                String data= rs15.getString("data");
+                                 String usename= rs15.getString("usename");
+                                    String text= rs15.getString("text"); %>
+                            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
                                <%
                                     String str=new String(rs15.getString("title")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
                                     if(str.length()>27){      
@@ -927,107 +1081,37 @@
             <div class="col-lg-12">
                 <h2 class="page-header">图新鲜</h2>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-1.jpg" alt="郑州大学风景">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-2.jpg" alt="郑州大学风景">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-3.jpg" alt="郑州大学风景">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-4.jpg" alt="郑州大学风景">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-5.jpg" alt="郑州大学风景">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="images/zzu-6.jpg" alt="郑州大学风景">
-                </a>
-            </div>
-        </div>
+       
+                     <%  DbBean db20 =new DbBean();
+                     String sql20="select * from picture order by id desc"; //：data时间 排序 
+                     ResultSet rs20=db20.query(sql20); //rs=st.executeQuery(sql);
+                     int count20=6;
+                     try{
+                     while((count20--)!=0&&rs20.next()){
+                     %> 
+                     <div class="col-md-4 col-sm-6">
+                       <a href="portfolio-item.html">
+                        <%
+                            String str1=new String(rs20.getString("picname")); //前27  文章的标题能显示到27个字，不过数字和中文宽度px不一样，就按中文的最大宽度来算的
+                            String str2=new String(rs20.getString("pictrace"));
+                        %>
+                        <img class="img-responsive img-portfolio img-hover" title="<%=str1%>" src="<%=str2%>" width="360" height="285" alt="郑州大学风景">
+                        <li ><center><%=str1%></center></li>
+                       </a>
+                     </div>
+                     <% }
+                        db20.close();
+                        }catch(Exception e){
+                             out.println(e.toString());
+                        }%>    
+                       <div>
+                        <a href="topics/work.jsp" class="btn btn-default" target="_blank">更多..</a>  <!--不知道去何方。。。-->          
+                       </div>
         <!-- /.row -->
-        <!-- Marketing Icons Section -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">
-                    友情链接 
-                </h1>
-            </div>
-            <div class="bcol-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>拼客来临</h4>
-                    </div>
-                    <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
-                    </div>
-                </div>
-            </div>
-             
-            <div class="bcol-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i>老乡情深</h4>
-                    </div>
-                    <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bcol-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-gift"></i>人逢知己</h4>
-                    </div>
-                    <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="bcol-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-compass"></i>非诚勿扰</h4>
-                    </div>
-                    <div class="panel-body">
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <li><a href="#">郑州大学郑州大学郑州大学郑州大学郑州大学郑州大学</a></li>
-                        <a href="#" class="btn btn-default">Learn More</a>
-                    </div>
-                </div>
-            </div>
         </div>
-        <!-- /.row -->
+        
         <!-- Features Section -->
-        <div class="row">
+       <!-- <div class="row">
             <div class="col-lg-12">
                 <h2 class="page-header">Modern Business Features</h2>
             </div>
@@ -1049,7 +1133,7 @@
             </div>
         </div>
         <!-- /.row -->
-
+       
         <hr>
 
         <!-- Call to Action Section -->

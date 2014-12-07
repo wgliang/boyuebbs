@@ -1266,7 +1266,9 @@ width:1170px
 	position:relative;
 	min-height:1px;
 	padding-right:15px;
-	padding-left:15px
+	padding-left:15px;
+	font-size: 12px;
+
 }
 .lcol-md-4 {
 	margin-top:110px;
@@ -1595,7 +1597,7 @@ margin-left:0
 }
 }
 @media (min-width:992px) {
-.col-md-1, .col-md-2, .col-md-3, .col-md-4, bcol-md-4,.col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .bcol-md-4,.col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
 float:left
 }
 .col-md-12 {
@@ -1617,7 +1619,7 @@ width:66.66666667%
 width:58.33333333%
 }
 .col-md-6 {
-width:50%
+width:25%
 }
 .col-md-5 {
 width:41.66666667%
@@ -4310,7 +4312,8 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
 	box-shadow:0 1px 1px rgba(0, 0, 0, .05)
 }
 .panel-body {
-	padding:15px
+	padding:15px;
+	font-size: 12px;
 }
 .panel-heading {
 	padding:10px 15px;
@@ -4410,6 +4413,7 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
 }
 .panel-group {
 	margin-bottom:20px
+
 }
 .panel-group .panel {
 	margin-bottom:0;

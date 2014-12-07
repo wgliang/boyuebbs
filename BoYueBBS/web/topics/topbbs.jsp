@@ -45,16 +45,16 @@
 <div class="zg-wrap" id="zh-top-inner"><%-- class="zg-wrap" 不同页面可以改不同图像 不过没改成功，不知道为什么--%>
 <%--<a href="" class="zuzhi-top-link-logo" id="zuzhi-top-link-logo">泊月</a>--%>
  <li class="zu-top-nav-li current" id="zh-top-home-link">
-        <a class="zu-top-nav-name" href="index.jsp" id="zh-top-link-home">泊月</a>
+        <a class="zu-top-nav-name" href="../index.jsp" id="zh-top-link-home">泊月</a>
     </li>
 
 <%-- class="zuzhi-top-link-logo" 不同页面可以改不同图像    不过没改成功，不知道为什么--%>
 <div class="top-nav-profile">
            <%
-           if(session.getAttribute("usernam")!=null){
+           if(session.getAttribute("username")!=null){
              %>    <a href="peopleindex.jsp" class="zu-top-nav-userinfo "><%-- peopleindex.jsp 到个人主页去--%>
 
-    <span class="name"><% String uesrname = (String)session.getAttribute("usernam");
+    <span class="name"><% String uesrname = (String)session.getAttribute("username");
                        out.print("<span>"+uesrname+"</span>"); %> </span>
     <% String srcdb=(String)session.getAttribute("head");%>
     <img class="avatar" src="../<%=srcdb%>" alt="images" />         <%--从数据库读头像上来 --%>
@@ -65,13 +65,13 @@
     </a>
     <ul class="top-nav-dropdown" id="top-nav-profile-dropdown">
     <li>
-        <a href="/people/chen-qian-60-36">
+        <a href="../userhome.jsp">
         <i class="zg-icon zg-icon-dd-home"></i>我的主页
         </a>
     </li>
 
     <li>
-         <a href="/inbox">
+         <a href="##">
             <i class="zg-icon zg-icon-dd-pm"></i>私信
              <span id="zh-top-nav-pm-count" class="zu-top-nav-pm-count zg-noti-number"
              style="visibility:hidden" data-count="0">
@@ -80,7 +80,7 @@
           </a>
       </li>
     <li>
-        <a href="/settings">
+        <a href="##">
              <i class="zg-icon zg-icon-dd-settings"></i>设置
         </a>
     </li>
@@ -92,7 +92,7 @@
     </ul>
  <%  }                        
        else { %>
-            <a href="../../login.jsp" class="zu-top-nav-userinfo ">
+            <a href="../login.jsp" class="zu-top-nav-userinfo ">
 
     <span class="name">登录</span>
    
@@ -120,16 +120,14 @@
 
 <div id="zg-top-nav" class="zu-top-nav">
     <ul class="zu-top-nav-ul zg-clear">
-
+    <li class="zu-top-nav-li current" id="zh-top-home-link">
+        <a class="zu-top-nav-link" href="../establishessay.jsp" id="zh-top-link-home">发帖</a>
+    </li>
     <li class="zu-top-nav-li current" id="zh-top-home-link">
         <a class="zu-top-nav-link" href="../index.jsp" id="zh-top-link-home">泊月首页</a>
     </li>
     <li class="top-nav-topic-selector zu-top-nav-li " id="zh-top-nav-item-topic">
         <a class="zu-top-nav-link" href="../topics.jsp" id="top-nav-dd-topic">全部话题</a>
-
-    </li>
-    <li class="top-nav-topic-selector zu-top-nav-li " id="zh-top-nav-item-topic">
-        <a class="zu-top-nav-link" href="topics.jsp" id="top-nav-dd-topic">发现</a>
 
     </li>
    

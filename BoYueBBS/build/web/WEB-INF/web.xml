@@ -12,6 +12,10 @@
         <servlet-name>Register</servlet-name>
         <servlet-class>com.servlet.Register</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EstablishEssay</servlet-name>
+        <servlet-class>com.servlet.EstablishEssay</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>First</servlet-name>
         <url-pattern>/First</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EstablishEssay</servlet-name>
+        <url-pattern>/EstablishEssay</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

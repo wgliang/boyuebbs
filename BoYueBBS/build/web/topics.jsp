@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN" dropEffect="none" class="no-js ">
 <head>
-<meta charset="utf-8" />
+<meta charset="GB2312" />
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="renderer" content="webkit" />
@@ -84,11 +84,11 @@
 <!-- feed item start -->
 <%--
  <%  DbBean db3 =new DbBean();
-    String sql3="select topic_name,topic_chinese,topic_count from topic order by topic_id ";
+    String sql3="select topic_nameom topic order by topic_id ";
     ResultSet rs3=db3.query(sql3); //rs=st.executeQuery(sql);
     int count3=Integer.parseInt(rs1.getString("topic_id"));
     try{
-        while((count3--)!=0&&rs3.next()){     
+        while((count3--)!=.next()){     
             
   %>
 
@@ -158,39 +158,31 @@
                 <h3 class="topic-item-title"><a class="topic-item-title-link" href="topics/<%=rs3.getString("topic_name")%>.jsp"> <%=rs3.getString("topic_chinese")%></a></h3>
             </div>   
     
-<%--
-    <div class="topic-item-feed-digest">
 
-        <div class="topic-feed-item">
-                <a href="/question/21244362">电商的异地仓储如何开票给消费者？</a>
-                <span class="zg-gray time">57 秒前</span>
-        </div>
-        <div class="topic-feed-item">
-                <a href="/question/21244362">电商的异地仓储如何开票给消费者？</a>
-                <span class="zg-gray time">57 秒前</span>
-        </div>
-        <div class="topic-feed-item">
-                <a href="/question/21244362">电商的异地仓储如何开票给消费者？</a>
-                <span class="zg-gray time">57 秒前</span>
-        </div>
-
-        </div>   --%>
    <div class="topic-item-feed-digest">
       
         <%
      
          String articleName=rs3.getString("topic_name");
         DbBean db2=new DbBean();
-        String sql2="select id,title,topicname,data from article_"+articleName+" order by data desc";
+        String sql2="select * from article_"+articleName+" order by data desc";
          ResultSet rs2=db2.query(sql2); //rs=st.executeQuery(sql);
          int count2=3;
           try{
               while((count2--)!=0&&rs2.next()){  
          %>
         <div class="topic-feed-item">
-            <a href="topics/<%=rs2.getString("topicname")%>/<%=rs2.getString("id")%>.jsp" target="_blank"><%=rs2.getString("title")%></a>
+            
+            <% String title= rs2.getString("title");
+            String data= rs2.getString("data");
+            String usename= rs2.getString("usename");
+           String text= rs2.getString("text"); %>
+            <a href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank">
+                <%=rs2.getString("title")%>
+               </a> 
+      
             <span class="zg-gray time"><%=rs2.getString("data")%></span>
-        </div>
+        </div> 
          <% }
               db2.close();
           }catch(Exception e){

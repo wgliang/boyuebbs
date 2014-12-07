@@ -1,6 +1,6 @@
 <%-- 
-    Document   : science
-    Created on : 2014-11-22, 22:47:50
+    Document   : xs
+    Created on : 2014-11-22, 22:47:27
     Author     : chenqian
 --%>
 
@@ -16,7 +16,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="renderer" content="webkit" />
 
-<title>泊月--学术</title>
+<title>泊月--学术组织</title>
 
 <meta name="apple-itunes-app" content="app-id=432274380" />
 
@@ -45,8 +45,7 @@
 <body class="zhi">
     
     <%@include file="topbbs.jsp" %>  <%--最上面的一条 --%>
-    <br>
-    <div style="height:50px"><a href="science.jsp"><h1 align="center">学术</h1></a></div>  <%--  这里放张图片链接 --%>
+    <div style="height:60px"><a href="science.jsp"><h1 align="center">学术</h1></a></div>
     
 <div class="zu-global-notify" id="zh-global-message" style="display:none">
 <div class="zg-wrap">
@@ -82,7 +81,11 @@
 
 <div class="top-recommend-feed feed-item">
         <h2>
-            <a class="question_link" target="_blank" href="<%=rs3.getString("topicname")%>/<%=rs3.getString("id")%>.jsp"><%=rs3.getString("title")%></a>
+            <% String title= rs3.getString("title");
+            String data= rs3.getString("data");
+            String usename= rs3.getString("usename");
+           String text= rs3.getString("text"); %>
+            <a class="question_link" target="_blank" href="../article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>"><%=rs3.getString("title")%></a>
         </h2>
         <div class="avatar">
             <a title="zxy0253" data-tip="p$t$zxy0253" class="zm-item-link-avatar" target="_blank"href="people/<%=rs3.getString("usename")%>">
@@ -120,7 +123,11 @@
     <div class="recommend-feed feed-item">
     <span class="zg-right zg-gray-normal feed-meta" ><%=rs3.getString("data")%></span>
         <h2>
-            <a class="question_link" target="_blank" href="<%=rs3.getString("topicname")%>/<%=rs3.getString("id")%>.jsp">
+            <% String title1= rs3.getString("title");
+            String data1= rs3.getString("data");
+            String usename1= rs3.getString("usename");
+           String text1= rs3.getString("text"); %>
+            <a class="question_link" target="_blank" href="../article.jsp?title=<%=java.net.URLEncoder.encode(title1,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data1,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename1,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text1,"UTF-8")%>">
                  <%=rs3.getString("title")%>
              </a>
         </h2>
@@ -150,7 +157,7 @@
     <div data-type="daily">
        
 <%  DbBean db1 =new DbBean();
-    String sql1="select * from article where topicname='science' order by data desc";
+    String sql1="select * from article where topicname='science'order by data desc";
     ResultSet rs1=db1.query(sql1); //rs=st.executeQuery(sql);
     int count1=7;
     try{
@@ -159,7 +166,11 @@
     %>  
 <div class="explore-feed feed-item" data-offset="5">
     <h2>
-        <a class="question_link" href="<%=rs1.getString("topicname")%>/<%=rs1.getString("id")%>.jsp"><%=rs1.getString("title")%></a></h2>
+        <% String title1= rs1.getString("title");
+            String data1= rs1.getString("data");
+            String usename1= rs1.getString("usename");
+           String text1= rs1.getString("text"); %>
+            <a class="question_link" target="_blank" href="../article.jsp?title=<%=java.net.URLEncoder.encode(title1,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data1,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename1,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text1,"UTF-8")%>"><%=rs1.getString("title")%></a></h2>
 <div tabindex="-1" class="zm-item-answer "
 data-aid="8876753"
 data-atoken="33724212"
@@ -212,7 +223,7 @@ data-helpful="1"
         }        
         %>…
 
-<a href="<%=rs1.getString("topicname")%>/<%=rs1.getString("id")%>.jsp" class="toggle-expand">显示全部</a>
+<a href="../article.jsp?title=<%=java.net.URLEncoder.encode(title1,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data1,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename1,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text1,"UTF-8")%>" class="toggle-expand">显示全部</a>
 
 </div>
 

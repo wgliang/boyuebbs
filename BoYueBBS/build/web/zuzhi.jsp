@@ -86,7 +86,11 @@
 
 <div class="top-recommend-feed feed-item">
         <h2>
-            <a class="question_link" target="_blank" href="topics/<%=rs3.getString("topicname")%>/<%=rs3.getString("id")%>.jsp"><%=rs3.getString("title")%></a>
+            <% String title= rs3.getString("title");
+            String data= rs3.getString("data");
+            String usename= rs3.getString("usename");
+           String text= rs3.getString("text"); %>
+            <a class="question_link" href="article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>" target="_blank"><%=rs3.getString("title")%></a>
         </h2>
         <div class="avatar">
             <a title="zxy0253" data-tip="p$t$zxy0253" class="zm-item-link-avatar" target="_blank"href="people/<%=rs3.getString("usename")%>">
@@ -124,7 +128,12 @@
     <div class="recommend-feed feed-item">
     <span class="zg-right zg-gray-normal feed-meta" ><%=rs3.getString("data")%></span>
         <h2>
-            <a class="question_link" target="_blank" href="topics/<%=rs3.getString("topicname")%>/<%=rs3.getString("id")%>.jsp">
+            <% String title1= rs3.getString("title");
+            String data1= rs3.getString("data");
+            String usename1= rs3.getString("usename");
+           String text1= rs3.getString("text"); 
+            %>
+            <a class="question_link" target="_blank" href="article.jsp?title=<%=java.net.URLEncoder.encode(title1,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data1,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename1,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text1,"UTF-8")%>">
                  <%=rs3.getString("title")%>
              </a>
         </h2>
@@ -163,7 +172,12 @@
     %>  
 <div class="explore-feed feed-item" data-offset="5">
     <h2>
-        <a class="question_link" href="topics/<%=rs1.getString("topicname")%>/<%=rs1.getString("id")%>.jsp"><%=rs1.getString("title")%></a></h2>
+        <% String title2= rs1.getString("title");
+            String data2= rs1.getString("data");
+            String usename2= rs1.getString("usename");
+           String text2= rs1.getString("text"); 
+            %>
+        <a class="question_link" href="article.jsp?title=<%=java.net.URLEncoder.encode(title2,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data2,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename2,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text2,"UTF-8")%>"><%=rs1.getString("title")%></a></h2>
 <div tabindex="-1" class="zm-item-answer "
 data-aid="8876753"
 data-atoken="33724212"
@@ -216,7 +230,7 @@ data-helpful="1"
         }        
         %>…
 
-<a href="topics/<%=rs1.getString("topicname")%>/<%=rs1.getString("id")%>.jsp" class="toggle-expand">显示全部</a>
+<a href="article.jsp?title=<%=java.net.URLEncoder.encode(title2,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data2,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename2,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text2,"UTF-8")%>" class="toggle-expand">显示全部</a>
 
 </div>
 

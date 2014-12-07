@@ -20,12 +20,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * @author haoyulong
- *
- * To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Generation - Code and Comments
- */
+
 public class LoginCheck extends HttpServlet {
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException,SQLException, Exception {
@@ -44,7 +39,7 @@ public class LoginCheck extends HttpServlet {
                 conn=java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/boyuebbs","root","0000");
                 st=conn.createStatement();  //建立语句对象
                        
-                String sql="select id,pwd,nickname,head from user";  //SQL语句根据需要改--------------------------------
+                String sql="select id,pwd,nickname,head,sex,age,email,sign from user";  //SQL语句根据需要改--------------------------------
              
                 rs=st.executeQuery(sql);//这里
                boolean flog=false;
@@ -53,21 +48,26 @@ public class LoginCheck extends HttpServlet {
                         flog=true;
                         
                         HttpSession session = request.getSession();
-                        session.setAttribute("usernam",rs.getString(3));
+                        session.setAttribute("username",rs.getString(3));
                         session.setAttribute("head",rs.getString(4));
+                        session.setAttribute("sex",rs.getString(5));
+                        session.setAttribute("birth",rs.getString(6));
+                        session.setAttribute("email",rs.getString(7));
+                        session.setAttribute("sign",rs.getString(8));
                         break;
                    }
                    else {
                        HttpSession session = request.getSession();
-                        session.setAttribute("usernam","");
+                        session.setAttribute("username","");
                    }
                }
                if(flog==true){
                         response.sendRedirect("index.jsp"); //登陆成功，到主页去了
                  }
                else{
+                   //response.sendRedirect("loginWrong.jsp");
                       RequestDispatcher dispatcher =
-                               getServletConfig().getServletContext().getRequestDispatcher("/loginWrong.jsp");//页面改一下
+                               getServletConfig().getServletContext().getRequestDispatcher("loginWrong.jsp");//页面改一下
                        dispatcher.forward(request, response);
                    } 
                 

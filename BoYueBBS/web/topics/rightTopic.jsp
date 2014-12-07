@@ -53,7 +53,7 @@
         </div>
         <ul class="list hot-topics">
 <%  DbBean db =new DbBean();
-    String sql="select topic_name,topic_chinese,topic_count from topic order by topic_count desc ";
+    String sql="select * from topic order by topic_count desc ";
     ResultSet rs=db.query(sql); //rs=st.executeQuery(sql);
     int count=5; 
     try{
@@ -78,11 +78,16 @@
          String articleName=rs.getString("topic_name");
  
         DbBean db2=new DbBean();
-        String sql2="select title,id,topicname from article_"+articleName+" where topicname=\""+articleName+"\" order by count desc";
+        String sql2="select * from article_"+articleName+" where topicname=\""+articleName+"\" order by count desc";
          ResultSet rs2=db2.query(sql2); //rs=st.executeQuery(sql);
          rs2.next();
+        
          %>
-        <a class="question_link" target="_blank" href="<%=rs2.getString("topicname")%>/<%=rs2.getString("id")%>.jsp"><%=rs2.getString("title")%></a>
+          <% String title= rs2.getString("title");
+            String data= rs2.getString("data");
+            String usename= rs2.getString("usename");
+           String text= rs2.getString("text"); %>
+        <a class="question_link" target="_blank" href="../article.jsp?title=<%=java.net.URLEncoder.encode(title,"UTF-8")%>&data=<%=java.net.URLEncoder.encode(data,"UTF-8")%>&usename=<%=java.net.URLEncoder.encode(usename,"UTF-8")%>&text=<%=java.net.URLEncoder.encode(text,"UTF-8")%>"><%=rs2.getString("title")%></a>
         <% db2.close();%>
     </div>
     </li>

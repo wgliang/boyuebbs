@@ -47,14 +47,15 @@
  <li class="zu-top-nav-li current" id="zh-top-home-link">
         <a class="zu-top-nav-name" href="index.jsp" id="zh-top-link-home">泊月</a>
     </li>
+    
 
 <%-- class="zuzhi-top-link-logo" 不同页面可以改不同图像    不过没改成功，不知道为什么--%>
 <div class="top-nav-profile">
            <%
-           if(session.getAttribute("usernam")!=null){
+           if(session.getAttribute("username")!=null){
              %>    <a href="peopleindex.jsp" class="zu-top-nav-userinfo "><%-- peopleindex.jsp 到个人主页去--%>
 
-    <span class="name"><% String uesrname = (String)session.getAttribute("usernam");
+    <span class="name"><% String uesrname = (String)session.getAttribute("username");
                        out.print("<span>"+uesrname+"</span>"); %> </span>
     <% String srcdb=(String)session.getAttribute("head");%>
     <img class="avatar" src="<%=srcdb%>" alt="images" />         <%--从数据库读头像上来 --%>
@@ -64,7 +65,7 @@
     </a>
     <ul class="top-nav-dropdown" id="top-nav-profile-dropdown">
     <li>
-        <a href="/people/chen-qian-60-36">
+        <a href="userhome.jsp">
         <i class="zg-icon zg-icon-dd-home"></i>我的主页
         </a>
     </li>
@@ -119,19 +120,17 @@
 
 <div id="zg-top-nav" class="zu-top-nav">
     <ul class="zu-top-nav-ul zg-clear">
-
+    <li class="zu-top-nav-li current" id="zh-top-home-link">
+        <a class="zu-top-nav-link" href="establishessay.jsp" id="zh-top-link-home">发帖</a>
+    </li>
     <li class="zu-top-nav-li current" id="zh-top-home-link">
         <a class="zu-top-nav-link" href="index.jsp" id="zh-top-link-home">泊月首页</a>
     </li>
+    
     <li class="top-nav-topic-selector zu-top-nav-li " id="zh-top-nav-item-topic">
         <a class="zu-top-nav-link" href="topics.jsp" id="top-nav-dd-topic">全部话题</a>
+   </li>
 
-    </li>
-    <li class="top-nav-topic-selector zu-top-nav-li " id="zh-top-nav-item-topic">
-        <a class="zu-top-nav-link" href="topics.jsp" id="top-nav-dd-topic">发现</a>
-
-    </li>
-   
 </ul>
  
     <div class="zu-top-nav-live zu-noti7-popup zg-r5px no-hovercard" id="zh-top-nav-live-new" role="popup" tabindex="0">
